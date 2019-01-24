@@ -53,13 +53,7 @@ namespace AstraPlat
                 CostOfRide = 250
             };
 
-            Console.WriteLine(testChild.BalanceOfCard);
-            Console.ReadLine();
-            
-            
-        }
-        public void Validation()
-        {
+
             Console.WriteLine("Выберите тип поездки: 1 - Город, 2 - Экспресс, 3 - Пригород");
             int typeOfRide;
             while (!int.TryParse(Console.ReadLine(), out typeOfRide))
@@ -72,16 +66,26 @@ namespace AstraPlat
             {
                 Console.WriteLine("Неправильно введен тип");
             }
-            int costOfRide;
-            int balanceOfCard;
+            int costOfRide = 0;
+            int balanceOfCard = 0;
+            int halfOfCost;
             switch (typeOfCard)
             {
                 case 1:
                     switch (typeOfRide)
                     {
-                        case 1: costOfRide = testCity.CostOfRide / 2;break;
-                        case 2: costOfRide = testExpress.CostOfRide / 2; break;
-                        case 3: costOfRide = testSuburban.CostOfRide / 2; break;
+                        case 1:
+                            halfOfCost = testCity.CostOfRide / 2;
+                            costOfRide = halfOfCost;
+                            break;
+                        case 2:
+                            halfOfCost = testExpress.CostOfRide / 2;
+                            costOfRide = halfOfCost;
+                            break;
+                        case 3:
+                            halfOfCost = testSuburban.CostOfRide / 2;
+                            costOfRide = halfOfCost;
+                            break;
                     }
                     balanceOfCard = testChild.BalanceOfCard;
                     break;
@@ -105,7 +109,16 @@ namespace AstraPlat
                     break;
             }
 
-
+            if (balanceOfCard < costOfRide)
+            {
+                Console.WriteLine($"Недостаточно средств на карте: {balanceOfCard}, стоймость поездки {costOfRide}");
+            }
+            else
+            {
+                Console.WriteLine($"Стоймость поездки {costOfRide}, Остаток на карте {balanceOfCard-costOfRide}, ");
+            }
+            Console.ReadLine();
         }
+
     }
 }
